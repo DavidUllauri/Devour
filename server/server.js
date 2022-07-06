@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log(`${socket.id} connected`);
+    rest_map = {}
 
     socket.on('add restaurant', (restaurant, room) => {
         socket.nsp.to(room).emit('received restaurant', restaurant);
@@ -23,6 +24,13 @@ io.on('connection', (socket) => {
         console.log(`${socket.id} joined ${room}`);
         socket.join(room);
     });
+
+    socket.on('vote', (restaurant) => {
+        if (rest_map[restaurant] === undefined) {
+            rest_dict[restaurant] = 0;
+        }
+        rest_dict[restaurant] += 1;
+    })
 });
 
 server.listen(port, () => {
