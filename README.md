@@ -1,3 +1,3 @@
 # Devour
 
-Pick a place to eat
+Pick a place to eat by voting.
